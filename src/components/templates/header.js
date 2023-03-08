@@ -49,10 +49,10 @@ logoutBtn.href = "/";
 nameOfLoginBtn.innerText = "로그인";
 nameOfLogoutBtn.innerText = "로그아웃";
 if (token === null) {
-	logoutBtn.style.display = "none";
-	welcomeWord.style.display = "none";
+  logoutBtn.style.display = "none";
+  welcomeWord.style.display = "none";
 } else {
-	loginBtn.style.display = "none";
+  loginBtn.style.display = "none";
 }
 
 mainLogoBtn.append(mainLogoBtnImage);
@@ -61,98 +61,69 @@ welcomeWord.append(word);
 loginBtn.append(nameOfLoginBtn);
 logoutBtn.append(nameOfLogoutBtn);
 headerWrapper.append(
-	mainLogoBtn,
-	searchBtnWrapper,
-	welcomeWord,
-	loginBtn,
-	logoutBtn
+  mainLogoBtn,
+  searchBtnWrapper,
+  welcomeWord,
+  loginBtn,
+  logoutBtn
 );
 Header.append(headerWrapper);
 
-let inputText = "";
-let isClickTwice = false;
-
-searchBar.addEventListener("input", () => {
-	inputText = searchBar.value;
-});
-
-searchBar.addEventListener("keydown", (event) => {
-	if (event.key === "Enter" && !event.isComposing) {
-		searchBtn.click();
-	}
-});
-
-searchBtn.addEventListener("click", async () => {
-	if (inputText === "") {
-		alert("검색어를 입력하세요.");
-		return;
-	}
-	if (isClickTwice) return;
-	isClickTwice = true;
-
-	window.location = `/search/${inputText}`;
-
-	//init
-	isClickTwice = false;
-	searchBar.value = "";
-	inputText = "";
-});
-
 loginBtn.addEventListener("click", () => {
-	if (token) {
-		loginBtn.style.display = "none";
-		welcomeWord.style.display = "inline";
-	}
+  if (token) {
+    loginBtn.style.display = "none";
+    welcomeWord.style.display = "inline";
+  }
 });
 
 logoutBtn.addEventListener("click", () => {
-	logoutBtn.style.display = "none";
-	welcomeWord.style.display = "none";
-	loginBtn.style.display = "inline";
-	setLogout();
+  logoutBtn.style.display = "none";
+  welcomeWord.style.display = "none";
+  loginBtn.style.display = "inline";
+  setLogout();
 });
 
 searchBar.addEventListener("input", () => {
-	inputText = searchBar.value;
+  inputText = searchBar.value;
 });
 
 searchBar.addEventListener("keydown", (event) => {
-	if (event.key === "Enter" && !event.isComposing) {
-		searchBtn.click();
-	}
+  if (event.key === "Enter" && !event.isComposing) {
+    searchBtn.click();
+  }
 });
 
 searchBtn.addEventListener("click", async () => {
-	if (inputText === "") {
-		alert("검색어를 입력하세요.");
-		return;
-	}
-	if (isClickTwice) return;
-	isClickTwice = true;
+  if (inputText === "") {
+    alert("검색어를 입력하세요.");
+    return;
+  }
+  if (isClickTwice) return;
+  isClickTwice = true;
 
-	window.location = `/search/${inputText}`;
+  window.location = `/search/${inputText}`;
 
-	//init
-	isClickTwice = false;
-	searchBar.value = "";
-	inputText = "";
+  //init
+  isClickTwice = false;
+  searchBar.value = "";
+  inputText = "";
 });
 
 function setLogout() {
-	if (token) {
-		request("MEB04");
-		window.localStorage.clear();
-		token = "";
-	}
+  if (token) {
+    request("MEB04");
+    window.localStorage.clear();
+    token = "";
+  }
 }
 
 function getNextUrl() {
-	const id = localStorage.getItem("email");
-	if (id === "admin@zipsa.com") {
-		return "/admin";
-	} else {
-		return "/my";
-	}
+  const id = localStorage.getItem("email");
+  if (id === "admin@zipsa.com") {
+    return "/admin";
+  } else {
+    return "/my";
+  }
 }
 
 export default Header;
